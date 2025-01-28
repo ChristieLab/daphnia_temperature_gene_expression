@@ -1,5 +1,3 @@
-# Daphnia_pulex_Heat_Stress
-
 This repository contains the data and analysis scripts related to the study: "**Delayed transcriptional response of Daphnia pulex to thermal stres**" published in *[Insert Journal]* (DOI: [Insert DOI]).
 
 **Description**
