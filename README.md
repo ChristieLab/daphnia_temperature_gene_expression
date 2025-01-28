@@ -13,8 +13,8 @@ This study investigated the transcriptional response of *Daphnia pulex* to suble
 ## Analysis
 
 * **Scripts:**
-    * `data_preprocessing.R`: Script for quality control, trimming, and alignment of sequencing reads.
-    * `DEG_analysis.R`: Script for differential gene expression analysis using DESeq2.
-    * `GO_enrichment.R`: Script for Gene Ontology (GO) enrichment analysis of DEGs.
-    * `visualization.R`: Script for generating figures and plots.
+    * ``: Script for quality control, trimming, and alignment of sequencing reads.
+    * ``: Script for differential gene expression analysis using DESeq2.
+    * ``: Script for Gene Ontology (GO) analysis of DEGs.
+
 
