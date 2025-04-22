@@ -2,7 +2,7 @@ This repository contains the data and analysis scripts related to the study: "**
 
 **Description**
 
-This study investigated the transcriptional response of *Daphnia pulex* to sublethal temperature stress. We aimed to understand how elevated temperatures affect gene expression i, providing insights into their resilience and potential impacts on aquatic ecosystems.
+This study investigated the transcriptional response of *Daphnia pulex* to sublethal temperature stress. We aimed to understand how elevated temperatures affect gene expression, providing insights into their resilience and potential impacts on aquatic ecosystems.
 
 ## Data
 
