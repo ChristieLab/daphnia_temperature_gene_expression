@@ -1,0 +1,24 @@
+#!/bin/bash -l
+
+#SBATCH --job-name=assemble_transcripts
+#SBATCH -A beagle
+#SBATCH -t 120:00:00
+#SBATCH -n 20
+#SBATCH --output="assemble_transcripts.out"
+#SBATCH --error="assemble_transcripts.err"
+
+
+cd /scratch/bell/nbackens/daphnia_RNAseq/degs/alignment
+
+module purge
+module load biocontainers
+module load stringtie/2.2.1
+module load gffcompare/0.11.2
+
+FILELIST=`cat temp`
+
+# create assembly per sample
+for f in $FILELIST
+do
+stringtie ${f}.sorted.bam -l s2 -p 10 -G /scratch/bell/nbackens/daphnia_RNAseq/reference/genomic.gff -o /scratch/bell/nbackens/daphnia_RNAseq/degs/assembled_transcripts/${f}.sorted.bam.gff
+done

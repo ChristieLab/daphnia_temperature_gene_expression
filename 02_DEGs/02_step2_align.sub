@@ -1,0 +1,20 @@
+#!/bin/bash -l
+
+#SBATCH --job-name=align
+#SBATCH -A beagle
+#SBATCH -t 40:00:00
+#SBATCH -n 40
+
+
+#cd $PBS_O_WORKDIR # set this if not using sed in Makefile
+module load biocontainers
+module load hisat2/2.2.1
+
+cd /scratch/bell/nbackens/daphnia_RNAseq/daphnia_raw_data_II/
+
+FILELIST=`cat temp`
+
+for f in $FILELIST
+do
+hisat2 --dta --time --threads 40 -S /scratch/bell/nbackens/daphnia_RNAseq/degs/alignment/${f}.sam -x /scratch/bell/nbackens/daphnia_RNAseq/reference/GCF_021134715_Dpulex.index -1 /scratch/bell/nbackens/daphnia_RNAseq/daphnia_raw_data_II/${f}/${f}_1.fq.gz -2 /scratch/bell/nbackens/daphnia_RNAseq/daphnia_raw_data_II/${f}/${f}_2.fq.gz
+done

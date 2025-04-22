@@ -1,0 +1,18 @@
+#!/bin/bash -l
+
+#SBATCH --job-name=sort
+#SBATCH -A beagle
+#SBATCH -t 96:00:00
+#SBATCH -n 40
+
+cd /scratch/bell/nbackens/daphnia_RNAseq/degs/alignment
+FILELIST=`cat temp`
+
+
+module load biocontainers
+module load samtools/1.17
+
+for f in $FILELIST
+do
+samtools view -@ 40 -Su ${f}.sam | samtools sort -@ 40 -o ${f}.sorted.bam
+done
