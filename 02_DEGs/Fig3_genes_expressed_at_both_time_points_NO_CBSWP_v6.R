@@ -1,4 +1,4 @@
-#Fig 2CD
+#Fig 3CD
 
 ###################################
 ###### UPDATE 10/03/24   ###########
@@ -18,24 +18,10 @@ library("gplots")
 library("dplyr")
 library("tidyverse")
 library(cowplot)
+library(readxl)
 
 list.files()
 
-###Now do the same thing, but with the log2FC
-
-rm(list = ls())
-wd <- ("/Users/NJCB/Documents/Purdue/daphnia_RNAseq/results/02_degs/Fig2cd_NO_CBSWP/")
-setwd(wd)
-
-library('DESeq2')
-library("rtracklayer")
-library("ggplot2")
-library("gplots")
-library("dplyr")
-library("tidyverse")
-library(cowplot)
-
-list.files()
 
 #read in list of genes that were differentially expressed on day 4 but not on day 7
 list <- read.csv("./96_DEGs_not_DEGs_at_168_NO_CBSWP.csv")
@@ -160,7 +146,7 @@ ggsave(paste(wdII,"96_sig_DEGs_SHARED_at_168_NO_CBSWP_downregulated_v5_LOG2FC.sv
 
 #update for reviewer comment (8/20/25)
 ##########################################
-#identify how stabel functional categories of the shared genes
+#identify how stable functional categories of the shared genes
 #subtract log2fc values at 96 from 168
 
 magnitude_of_change <- d %>%
@@ -173,7 +159,6 @@ magnitude_of_change <- d %>%
   mutate(
     expression_difference = `168` - `96`
   ) %>%
-  # Select only the gene and the new column for clarity
   select(
     gene,
     expression_difference
@@ -278,3 +263,59 @@ most_prevalent_categories <- merged_data_with_names %>%
   arrange(gene, desc(n))
 
 print(most_prevalent_categories)
+
+####Create table for SI
+#read in merged data from annotations
+annot_96 <- read_excel("~/Purdue/daphnia_RNAseq/figures_tables/MS_figures/MS_v1_figures_tables_submit/Sup_Tables/Sup_Table3_96_DEGs_with_annot_full_table.xlsx")
+
+# Get IDs of the 74 shared DEGs and extract MSTRG.id and chromosome
+shared_deg_base_info <- data.frame(full_gene_id = unique(out$gene)) %>%
+  mutate(
+    MSTRG_id = str_extract(full_gene_id, "MSTRG\\.\\d+"),
+    chromosome = str_extract(full_gene_id, "^[^|]+") # Extracts "NC_060017.1"
+  ) %>%
+  dplyr::select(MSTRG_id, chromosome) %>%
+  distinct() # Ensure unique MSTRG_id and chromosome combinations
+
+
+shared_deg_coords_from_annot_tsv <- shared_deg_base_info %>%
+  left_join(annot %>% dplyr::select(gene_id, start, end),
+            by = c("MSTRG_id" = "gene_id")) %>%
+  dplyr::rename(start = start, end = end)
+
+
+#left join to annot merge script object to get full coordinates
+all_coords <- shared_deg_coords_from_annot_tsv %>%
+  left_join(degs_df %>% dplyr::select(seqid, start, end, gene_id),
+            by = c("MSTRG_id" = "gene_id")) %>%
+  dplyr::select(chromosome, start.y, end.y, MSTRG_id)
+
+
+all_coords <- all_coords %>%
+  rename(start = start.y, end = end.y, gene_id = MSTRG_id)
+
+
+final_deg_table <- all_coords %>%
+  left_join(annot_96 %>% dplyr::select(chromosome, start, end, eggNog_gene_name, eggNog_gene_description),
+            by = c("chromosome", "start", "end")) %>%
+  dplyr::select(
+    chromosome,
+    start,
+    end = end, 
+    gene_id = gene_id, 
+    eggNog_gene_name,
+    eggNog_gene_description
+  )
+
+head(final_deg_table)
+
+output_dir_table <- "~/Purdue/daphnia_RNAseq/MS_v2/overall_response_to_temperature/figures_and_tables/Sup_tables/"
+
+if (!dir.exists(output_dir_table)) {
+  dir.create(output_dir_table, recursive = TRUE)
+}
+
+# Write the table to a CSV file.
+write.csv(final_deg_table,
+          file = paste0(output_dir_table, "Sup_Table3_shared_DEGs_detailed_annotation_table.csv"),
+          row.names = FALSE)

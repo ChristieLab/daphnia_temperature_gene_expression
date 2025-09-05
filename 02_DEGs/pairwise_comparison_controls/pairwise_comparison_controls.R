@@ -67,14 +67,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C1_C2_control.clone.rds")
+##saveRDS(dds, file="./control_results/C1_C2_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C1_C2_control_DEG_summary.txt")
+sink(file = "./control_results/C1_C2_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C1_C2_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C1_C3
@@ -132,14 +139,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C1_C3_control.clone.rds")
+#saveRDS(dds, file="./control_results/C1_C3_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C1_C3_control_DEG_summary.txt")
+sink(file = "./control_results/C1_C3_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C1_C3_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C1_C4
@@ -209,14 +223,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C1_C4_control.clone.rds")
+#saveRDS(dds, file="./control_results/C1_C4_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C1_C4_control_DEG_summary.txt")
+sink(file = "./control_results/C1_C4_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C1_C4_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C1_C5
@@ -285,14 +306,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C1_C5_control.clone.rds")
+#saveRDS(dds, file="./control_results/C1_C5_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C1_C5_control_DEG_summary.txt")
+sink(file = "./control_results/C1_C5_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C1_C5_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C1_C6
@@ -343,14 +371,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C1_C6_control.clone.rds")
+#saveRDS(dds, file="./control_results/C1_C6_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C1_C6_control_DEG_summary.txt")
+sink(file = "./control_results/C1_C6_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C1_C6_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C2_C3
@@ -408,14 +443,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C2_C3_control.clone.rds")
+#saveRDS(dds, file="./control_results/C2_C3_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C2_C3_control_DEG_summary.txt")
+sink(file = "./control_results/C2_C3_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C2_C3_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C2_C4
@@ -483,14 +525,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C2_C4_control.clone.rds")
+#saveRDS(dds, file="./control_results/C2_C4_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C2_C4_control_DEG_summary.txt")
+sink(file = "./control_results/C2_C4_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C2_C4_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C2_C5
@@ -559,14 +608,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C2_C5_control.clone.rds")
+#saveRDS(dds, file="./control_results/C2_C5_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C2_C5_control_DEG_summary.txt")
+sink(file = "./control_results/C2_C5_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C2_C5_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C2_C6
@@ -624,14 +680,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C2_C6_control.clone.rds")
+#saveRDS(dds, file="./control_results/C2_C6_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C2_C6_control_DEG_summary.txt")
+sink(file = "./control_results/C2_C6_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C2_C6_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C3_C4
@@ -701,14 +764,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C3_C4_control.clone.rds")
+#saveRDS(dds, file="./control_results/C3_C4_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C3_C4_control_DEG_summary.txt")
+sink(file = "./control_results/C3_C4_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C3_C4_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C3_C5
@@ -777,14 +847,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C3_C5_control.clone.rds")
+#saveRDS(dds, file="./control_results/C3_C5_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C3_C5_control_DEG_summary.txt")
+sink(file = "./control_results/C3_C5_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C3_C5_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C3_C6
@@ -842,14 +919,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C3_C6_control.clone.rds")
+#saveRDS(dds, file="./control_results/C3_C6_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C3_C6_control_DEG_summary.txt")
+sink(file = "./control_results/C3_C6_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C3_C6_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C4_C5
@@ -920,14 +1004,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C4_C5_control.clone.rds")
+#saveRDS(dds, file="./control_results/C4_C5_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C4_C5_control_DEG_summary.txt")
+sink(file = "./control_results/C4_C5_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C4_C5_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C4_C6
@@ -996,14 +1087,21 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C4_C6_control.clone.rds")
+#saveRDS(dds, file="./control_results/C4_C6_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C4_C6_control_DEG_summary.txt")
+sink(file = "./control_results/C4_C6_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C4_C6_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
 #C5_C6
@@ -1072,13 +1170,20 @@ dds <- estimateSizeFactors(dds)
 
 dds <- DESeq(dds)
 
-saveRDS(dds, file="./control_results/C5_C6_control.clone.rds")
+#saveRDS(dds, file="./control_results/C5_C6_control.clone.rds")
 
 res <- results(dds, alpha=0.05, pAdjustMethod = "BH", independentFiltering = TRUE)
 length(which(res[, 6] < 0.05))
 summary(res)
-sink(file = "./control_results/C5_C6_control_DEG_summary.txt")
+sink(file = "./control_results/C5_C6_control_DEG_summary_v2.txt")
 length(which(res[, 6] < 0.05))
 summary(res)
+sink(file = NULL)
+sink(file = "./control_results/C5_C6_control_DEG_mean_log2FC.txt")
+mean_log2FC_significant <- as_tibble(res, rownames = "gene") %>%
+  filter(padj < 0.05) %>%
+  pull(log2FoldChange) %>%
+  mean(na.rm = TRUE)
+print(mean_log2FC_significant)
 sink(file = NULL)
 ####################################################################################################################
