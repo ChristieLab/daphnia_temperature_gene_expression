@@ -180,3 +180,55 @@ while (!is.null(dev.list()))  dev.off()
 
 ggsave(paste("./PCA_MITO_LEGEND.svg", sep=""), plot=leg, units = "in", dpi=1000, height=6, width=8)
 
+#################################
+#MC main PCA edit
+
+#set working directory and check
+setwd("C:/Users/NJCB/Documents/Purdue/daphnia_RNAseq/results/updated_figures_02-23-25/PCA/")
+getwd()
+
+pca <- read.table("./pca_output.txt", header = TRUE)
+
+
+# sort out the individual species and pops
+#read in sample data
+samples <- read.csv("./sample.info.all.modified.csv")
+#had to remov a sample ("s180") that was filtered out for missing data 
+#[may need to do a join with other plots in the future] 
+samples <- head(samples, -1)
+
+
+pca_plot_data <- cbind(pca, samples)
+pca_plot_data <- as_tibble(pca_plot_data)
+
+pve <- data.frame(PC = 1:2, pve = c(58.5, 14.3)) # Replace with your actual values
+
+nice_layout <- theme_cowplot() +
+  theme(plot.background = element_rect(fill = "white", color = NA),
+        panel.border = element_rect(color = "grey85", size = 1, linetype = 1, fill = NA))
+
+p1_2 <- ggplot(pca_plot_data, aes(x = Dim1, y = Dim2, color = genotype_clone)) +
+  geom_jitter(size = 3, width = 0.005, height = 0.005, alpha = 0.8) +
+  #scale_shape_manual(values = c(16, 16, 16)) + # Adjust the number of values to match your number of groups
+  xlab(paste0("PC1 (", signif(pve$pve[1], 3), "%)")) +
+  ylab(paste0("PC2 (", signif(pve$pve[2], 3), "%)")) +
+  theme_cowplot() +
+  scale_color_viridis_d(option = "plasma", direction = -1, begin = 0) +
+  theme(
+    panel.grid.major = element_line(color = "lightgrey"),
+    panel.border = element_rect(color = "black"),
+    plot.background = element_rect(fill = "white", color = NA)
+  )
+
+# Display the plot with the legend
+print(p1_2)
+
+# Display the plot without the legend
+p1_2nl <- p1_2 + theme(legend.position = "none")
+print(p1_2nl)
+
+
+wdII <- ("~/Purdue/daphnia_RNAseq/MS_v2/overall_response_to_temperature/figures_and_tables/Fig1_MS/")
+ggsave(paste(wdII, "Fig1b_PCA_no_legend.svg", sep = ""), p1_2nl, units = "in", dpi=1000, height=6, width=8)
+ggsave(paste(wdII, "Fig1b_PCA_no_legend.png", sep = ""), p1_2nl, units = "in", dpi=1000, height=6, width=8)
+
